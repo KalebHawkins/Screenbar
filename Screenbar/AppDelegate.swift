@@ -4,7 +4,7 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
-    let statusItem = NSStatusBar.system().statusItem(withLength: -2)
+    let statusItem = NSStatusBar.system.statusItem(withLength: -2)
     let mainWindowPopover = NSPopover()
     var eventMonitor : EventMonitor?
     
@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         eventMonitor?.start()
     }
     
-    func showMainWindow() {
+    @objc func showMainWindow() {
         if let button = statusItem.button {
             if(self.mainWindowPopover.isShown) {
                 self.hideMainWindow(self)

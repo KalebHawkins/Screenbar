@@ -2,8 +2,8 @@ import Foundation
 
 class Settings : NSObject {
 
-    static var secondsKey = "seconds"
-    static var pathKey = "savePath"
+    static var secondsKey   = "seconds"
+    static var pathKey      = "savePath"
     static var playSoundKey = "playSound"
     
     static func setSecondsIntervall(_ seconds: Double?) {
@@ -29,7 +29,7 @@ class Settings : NSObject {
         let defaults = UserDefaults.standard
         var path : URL? = defaults.url(forKey: pathKey)
         if(path == nil) {
-            path = URL(string: NSHomeDirectory() + "/Desktop/")
+            path = URL(string: NSHomeDirectory() + "/Pictures/Screenbar/")
         }
         return path!
     }
@@ -47,4 +47,5 @@ class Settings : NSObject {
         }
         return state!;
     }
+    
 }
