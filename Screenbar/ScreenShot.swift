@@ -14,7 +14,7 @@ class ScreenShot : NSObject {
         return dateString;
     }
     
-    @objc func TakeScreenshot(format: NSInteger) {
+    @objc func TakeScreenshot(timer: Timer ) {
         // Get the date string from the previous function.
         let dateString = self.getDate()
         var extention = "jpg"
@@ -33,6 +33,8 @@ class ScreenShot : NSObject {
         // Determine what the format actually is
         // 0 = JPG/JPEG
         // 1 = PNG
+        let format = timer.userInfo! as! Int
+        print(format)
         if(format == 0){
             extention = "jpg"
         }

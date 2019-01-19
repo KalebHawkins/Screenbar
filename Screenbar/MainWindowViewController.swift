@@ -16,6 +16,10 @@ class MainWindowViewController: NSViewController {
     var timer: Timer = Timer()
     let screenshotHandler = ScreenShot()
     
+    override func viewDidLoad() {
+        self.setFormat()
+    }
+    
     // Set the initial values of all the parameters.
     override func viewWillAppear() {
         super.viewWillAppear()
@@ -23,7 +27,6 @@ class MainWindowViewController: NSViewController {
         self.hideError()
         self.setPath()
         self.setPlaySound()
-        self.setFormat()
     }
     
     
@@ -91,7 +94,7 @@ class MainWindowViewController: NSViewController {
         
         let item = screenshotFormat.indexOfSelectedItem
         
-        self.timer = Timer.scheduledTimer(timeInterval: seconds!, target: screenshotHandler, selector: #selector(ScreenShot.TakeScreenshot ), userInfo: ["format": item], repeats: true)
+        self.timer = Timer.scheduledTimer(timeInterval: seconds!, target: screenshotHandler, selector: #selector(ScreenShot.TakeScreenshot(timer:)), userInfo: item, repeats: true)
         self.ChangeTitleOfButton("Stop automatic screenshot")
     }
     
@@ -130,8 +133,9 @@ class MainWindowViewController: NSViewController {
     
     func setFormat(){
         screenshotFormat.removeAllItems()
-        screenshotFormat.addItem(withTitle: "JPG/JPEG")
-        screenshotFormat.addItem(withTitle: "PNG")
+        let formatSelections = ["JPG/JPEG","PNG"]
+        screenshotFormat.addItems(withTitles: formatSelections)
+        screenshotFormat.selectItem(at: 0)
     }
     
     // Exits the application.
