@@ -4,7 +4,6 @@ class ScreenShot : NSObject {
     
     lazy var dateFormatter = DateFormatter();
     
-    // Returns the date. This will be used to name the screenshot.
     private func getDate() -> String {
         let date = Date()
         self.dateFormatter.dateStyle = DateFormatter.Style.none
@@ -15,24 +14,17 @@ class ScreenShot : NSObject {
     }
     
     @objc func TakeScreenshot(timer: Timer ) {
-        // Get the date string from the previous function.
         let dateString = self.getDate()
         var extention = "jpg"
         
-        // Create a process and take a screenshot with it.
         let task = Process()
         task.launchPath = "/usr/sbin/screencapture"
         
-        // If the Play sound with capture box is unchecked we silence the command..
         var arguments = [String]();
         if(Settings.getPlaySound() == 0) {
-            // screenshot -x <filePath> # -x means do not play a sound.
             arguments.append("-x")
         }
         
-        // Determine what the format actually is
-        // 0 = JPG/JPEG
-        // 1 = PNG
         let format = timer.userInfo! as! Int
         print(format)
         if(format == 0){
@@ -42,11 +34,9 @@ class ScreenShot : NSObject {
             extention = "png"
         }
         
-        // Append the remainder of the arguments to the command. See man /usr/sbin/screenshot for more options.
         arguments.append(Settings.getPath().path + "/Screenshot-" + dateString + "." + extention)
         task.arguments = arguments
         
-        // Launch the task.
         task.launch()
     }
     
